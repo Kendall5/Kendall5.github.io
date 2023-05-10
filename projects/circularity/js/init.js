@@ -23,7 +23,7 @@ var init = function (window) {
     function drawCircle() {
       //
       circle = draw.randomCircleInArea(canvas, true, true, "#999", 2);
-      physikz.addRandomVelocity(circle, canvas);
+      physikz.addRandomVelocity(circle, canvas, 10, 10);
       view.addChild(circle);
       circles.push(circle);
     }
@@ -34,7 +34,9 @@ var init = function (window) {
     drawCircle();
     drawCircle();
     drawCircle();
-
+    for ( var counting = 0; counting < 100; counting++) {
+      drawCircle()
+    }
     ////////////////////////////////////////////////////////////
     ///////////////// PROGRAM LOGIC ////////////////////////////
     ////////////////////////////////////////////////////////////
@@ -62,7 +64,12 @@ var init = function (window) {
       game.checkCirclePosition(circles[4]);
       
       // TODO 9 : Iterate over the array
+      for (var i = 0; i < circles.length; i++){
+        physikz.updatePosition(circles[i]);
+        game.checkCirclePosition(circles[i]);
+      }
     }
+    
 
     /* 
         This Function should check the position of a circle that is passed to the 
@@ -76,7 +83,15 @@ var init = function (window) {
       }
 
       // TODO 6 : YOUR CODE STARTS HERE //////////////////////
-
+    if (circle.y > canvas.height) {
+      circle.y = 0;
+      }
+     if (circle.y < 0) {
+      circle.y = canvas.height;
+     }
+     if (circle.x < 0) {
+      circle.x = canvas.width;
+     }
       // YOUR TODO 6 CODE ENDS HERE //////////////////////////
     };
 
